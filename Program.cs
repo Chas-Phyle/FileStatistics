@@ -143,6 +143,9 @@ namespace Module2
 
 
             Array.Sort(popularity, word);
+            Console.WriteLine("Would you like to save a copy of the results? (Y/N)");
+            var userChoice = Console.ReadLine();
+            if(userChoice == "Y" || userChoice == "Yes") { 
             using (FileStream fs = File.Create($"{newDirectory}\\testdoc.txt"))
             {
 
@@ -150,7 +153,19 @@ namespace Module2
                 {
                     AddText(fs, $"{word[i]}\t\t {popularity[i]} \n");
                 }
+                    try
+                    {
+                        string[] vs1 = Directory.GetFiles($"{newDirectory}");
+                        if (vs1.Contains($"{newDirectory}\\testdoc.txt")) {
+                            Console.WriteLine("The file is now saved!");
+                        };
+                    }
+                    finally
+                    {
+                        Console.WriteLine("Sorry the application could not save the file please try again");
+                    }
 
+            }
             }
             DisplayArray(word, popularity);
 
